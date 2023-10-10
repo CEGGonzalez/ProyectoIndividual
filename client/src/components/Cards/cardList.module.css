@@ -1,0 +1,38 @@
+.cardList {
+  width: 80vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap:20px;
+  padding: 45px;
+}
+
+@media (min-width: 320px) {
+  .cardList {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 480px) {
+  .cardList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .cardList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .cardList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

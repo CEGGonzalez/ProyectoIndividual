@@ -1,13 +1,14 @@
 .detailContainer {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid grey;
-  border-radius: 35px;
-  width: 600px;
-  margin-left: auto; 
-  margin-right: auto; 
+  position: absolute;
+  width: 250px;
+  height: 450px;
+  background: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ 
 }
 .closeButton {
-    margin-left: 400px;
     color: rgb(255, 255, 255);
     background-color: rgb(173, 2, 2);
     text-decoration: none;
@@ -17,14 +18,12 @@
     border-radius: 25%;
   }
   .deleteButton {
-    margin-left: -250px;
     color: rgb(255, 0, 0);
     background-color: rgb(255, 255, 255);
     text-decoration: none;
     font-size: 15px;
     font-weight: bold;
     padding: 3px;
-    margin-right: 15px;
     border-radius: 25%;
   }
   .deleteButton[disabled] {
@@ -32,14 +31,13 @@
     pointer-events: none;
   }
   .updateButton {
-    margin-left: 250px;
     color: rgb(255, 255, 255);
     background-color: rgb(219, 152, 28);
     text-decoration: none;
     font-size: 15px;
     font-weight: bold;
     padding: 3px;
-    margin-right: 15px;
+    
     border-radius: 25%;
   }
   .updateButton[disabled] {
@@ -49,8 +47,7 @@
   .nombre {
     margin-top: -15px;
     max-width: fit-content;
-    color: rgb(255, 255, 255);
-    background-color: rgb(221, 0, 0);
+    color: rgb(3, 0, 0);
     text-align: center; 
     margin-left: auto; 
     margin-right: auto; 
@@ -66,7 +63,7 @@
   }
   .imagen{
     border: 1px solid #000000;
-    padding: 2px;
+    padding: 1px;
     border-radius: 50%;
     width: 210px;
     height: 210px;
@@ -75,5 +72,67 @@
     font-family: 'Tahoma', Geneva, Verdana, sans-serif;
   }
   .descripcion{
-    max-width: 98%;
+    width: 98%;
+    font-size: 10px;
   }
+
+.thecard{
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease;
+}
+
+
+.thecard:hover{
+  transform: rotateY(180deg);
+}
+
+ .thefront{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background: #ffc728;
+  color: #000;
+}
+
+.theback{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  overflow: auto;
+  background: #4f0404;
+  color: #fffdfd;
+  text-align: center;
+  transform: rotateY(180deg);
+}
+
+
+thefront h1, .theback h1{
+  font-family: 'zilla slab', sans-serif;
+  padding: 30px;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+}
+
+.thefront p, .theback p{
+  font-family: 'zilla slab', sans-serif;
+  padding: 30px;
+  font-weight: normal;
+  font-size: 12px;
+  text-align: center;
+}

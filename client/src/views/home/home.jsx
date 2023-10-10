@@ -1,56 +1,152 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import style from './home.module.css';
-import Navbar from '../../components/navbar/Navbar';
-import Cards from '../../components/cards/cards';
-import { getAllDrivers, getByName } from '../../redux/actions';
-import Pagination from '../Paginado/Pagination'; 
+import { useEffect, useState } from "react"; 
+import { useDispatch, useSelector } from "react-redux";
+import {getDrivers, orderDrivers, getTeams, filterTeams, reset, filterOrigin, searchDrivers, setError} from "../../redux/actions";
+import Paginado from "../Paginado/Paginado";
+import Cards from "../../components/Cards/cardList";
+import Navbar from "../../components/Nav/nav";
+import styles from "./home.module.css";
 
 function Home() {
   const dispatch = useDispatch();
-  const allDrivers = useSelector((state) => state.allDrivers);
-  const [searchString, setSearchString] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const driversPerPage = 9; 
+  const filteredDrivers = useSelector((state) => state.filteredDrivers);
+  const teams = useSelector((state) => state.teams);
+  const error = useSelector((state) => state.error);
 
-  function handleChange(e) {
-    e.preventDefault();
-    setSearchString(e.target.value);
-  }
+  const [filters, setFilters] = useState({
+    currentPage: parseInt(localStorage.getItem("currentPage")) || 1,
+    selectedOrder: localStorage.getItem("selectedOrder") || "",
+    selectedTeam: localStorage.getItem("selectedTeam") || "",
+    selectedOrigin: localStorage.getItem("selectedOrigin") || "",
+    checkedSearch: localStorage.getItem("checkedSearch") === "true",
+  });
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch(getByName(searchString));
-  }
+  const driversPerPage = 9;
+  const indexLastDriver = filters.currentPage * driversPerPage;
+  const indexOfFirstDriver = indexLastDriver - driversPerPage;
 
   useEffect(() => {
-    dispatch(getAllDrivers());
-  }, [dispatch]);
+    setTimeout(() => {
+      dispatch(setError(""));
+    }, 8000);
+  }, [dispatch, error]);
 
-  // Lógica para obtener los conductores que se mostrarán en la página actual
-  const indexOfLastDriver = currentPage * driversPerPage;
-  const indexOfFirstDriver = indexOfLastDriver - driversPerPage;
-  const currentDrivers = allDrivers.slice(
-    indexOfFirstDriver,
-    indexOfLastDriver
-  );
-  
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  useEffect(() => {
+    if (!filteredDrivers.length) {
+      dispatch(getDrivers());
+    }
+  }, [dispatch, filteredDrivers]);
+
+  useEffect(() => {
+    if (!teams.length) {
+      dispatch(getTeams());
+    }
+  }, [dispatch, teams]);
+
+  useEffect(() => {
+    const storedCurrentPage = localStorage.getItem("currentPage");
+    if (storedCurrentPage) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        currentPage: parseInt(storedCurrentPage),
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("currentPage", filters.currentPage.toString());
+  }, [filters.currentPage]);
+
+  const paginado = (pageNumber) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      currentPage: pageNumber,
+    }));
+  };
+
+  const handleOrder = (event) => {
+    const orderType = event.target.value;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      selectedOrder: orderType,
+    }));
+    localStorage.setItem("selectedOrder", orderType);
+    dispatch(orderDrivers(orderType));
+  };
+
+  const handlerFilterTeam = (event) => {
+    const team = event.target.value;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      selectedTeam: team,
+      currentPage: 1, 
+    }));
+    localStorage.setItem("selectedTeam", team);
+    dispatch(filterTeams(team));
+  };
+
+  const handleSearch = (name, isChecked) => {
+      setFilters((prevFilters) => ({
+      ...prevFilters,
+      checkedSearch: isChecked,
+      currentPage: 1, 
+    }));
+    localStorage.setItem("checkedSearch", isChecked.toString());
+    dispatch(searchDrivers(name, isChecked));
+  };
+
+  const resetHandler = () => {
+    setFilters({
+      currentPage: 1,
+      selectedOrder: "",
+      selectedTeam: "",
+      selectedOrigin: "",
+      checkedSearch: false,
+    });
+    localStorage.removeItem("selectedOrder");
+    localStorage.removeItem("selectedTeam");
+    localStorage.removeItem("selectedOrigin");
+    localStorage.removeItem("checkedSearch");
+    dispatch(reset());
+  };
+
+  const handlerFilterOrigin = (event) => {
+    const origin = event.target.value;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      selectedOrigin: origin,
+    }));
+    localStorage.setItem("selectedOrigin", origin);
+    dispatch(filterOrigin(origin));
   };
 
   return (
-    <div className={style.home}>
-      <Navbar handleChange={handleChange} handleSubmit={handleSubmit} />
-      {/* <h2 className={style.home_title}>Home</h2> */}
-      <Cards allDrivers={currentDrivers} /> 
-      
-      <Pagination 
-        driversPerPage={driversPerPage}
-        totalDrivers={allDrivers.length}
-        paginate={paginate}
-      /> 
-      
+    <div className={styles.home}>
+      <div className={styles.navBar}>
+        <Navbar
+          onSearch={handleSearch}
+          handleOrder={handleOrder}
+          teams={teams}
+          handlerFilterTeam={handlerFilterTeam}
+          resetHandler={resetHandler}
+          handlerFilterOrigin={handlerFilterOrigin}
+          {...filters}
+        />
+        {error && <p className={styles.errores}>{error}</p>}
+      </div>
+      <Cards
+        drivers={filteredDrivers.slice(
+          indexOfFirstDriver,
+          indexLastDriver
+        )}
+      />
+      <div className={styles.paginadoContainer}>
+        <Paginado
+          driversPerPage={driversPerPage}
+          allDrivers={filteredDrivers.length}
+          paginado={paginado}
+          currentPage={filters.currentPage}
+        />
+      </div>
     </div>
   );
 }

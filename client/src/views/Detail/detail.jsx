@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getDrivers } from '../../redux/actions/index';
 import styles from "./detail.module.css";
 
-const noImage = "https://i.imgur.com/Ks7SbZt.png";
+const noImage = "https://img.freepik.com/foto-gratis/coche-deportivo-brillante-conduciendo-pista-deportiva-iluminada-ia-generativa_188544-53590.jpg";
 
 function Detail() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id } = useParams();
   const [driver, setDriver] = useState({});
   const isDBDriver = driver.createInDb;
@@ -64,40 +65,46 @@ function Detail() {
     </button>
   );
 
-  const updateButton = isDBDriver ? (
-    <Link to={`/update/${driver.id}`} className={styles.updateButton} title="Update Driver">
-      <span role="img" aria-label="Foto" className={styles.imgIcon}>↻</span>
-    </Link>
-  ) : (
-    <button className={styles.updateButton} disabled>
-      <span role="img" aria-label="Foto" className={styles.imgIcon} title='update info of driver' disabled>↻</span>
-    </button>
-  );
+  // const updateButton = isDBDriver ? (
+  //   <Link to={`/update/${driver.id}`} className={styles.updateButton} title="Update Driver">
+  //     <span role="img" aria-label="Foto" className={styles.imgIcon}>↻</span>
+  //   </Link>
+  // ) : (
+  //   <button className={styles.updateButton} disabled>
+  //     <span role="img" aria-label="Foto" className={styles.imgIcon} title='update info of driver' disabled>↻</span>
+  //   </button>
+  // );
 
   return (
-    <div className={styles.detailContainer}>
-      {updateButton}
+  <div className={styles.detailContainer}>
+      {/* {updateButton} */}
       {deleteButton}
-      
       <Link to="/home" className={styles.closeButton} title="Close Card">
         <span role="img" aria-label="Foto" className={styles.imgIcon}>&#10005;</span>
       </Link>
+    <div className={styles.thecard}>
+      
 
       {driver && Object.keys(driver).length !== 0 ? (
-        <>
-          <h3 className={styles.id}>{driver.id}</h3>
-          <h3 className={styles.nombre}>{driver.name ? `${driver.name.forename} ${driver.name.surname}` : `${driver.forename} ${driver.surname}`}</h3>
-          <h5 className={styles.nacionalidad}>{driver.nationality}</h5>
+        <div className={styles.thefront}>
+          <h4 className={styles.id}>{driver.id}</h4>
+          <h4 className={styles.nombre}>{driver.name ? `${driver.name.forename} ${driver.name.surname}` : `${driver.forename} ${driver.surname}`}</h4>
           <img src={driver.image || noImage} alt="Driver" className={styles.imagen} />
-          <h5 className={styles.descripcion}>{driver.description || 'This driver has no description'}</h5>
+          <h5 className={styles.nacionalidad}>{driver.nationality}</h5>
           <h5>{driver.dob}</h5>
           <h5 className={styles.teams}>{formatTeams(driver.teams || driver.Teams)}</h5>
-        </>
+        </div>
       ) : (
-        <p>Loading Driver...</p>
-      )}
+        <p>Cargando Driver...</p>
+        )}
+        <div className={styles.theback}>
+        <h6 className={styles.descripcion} >{driver.description || 'No hay descripcion de este corredor'}</h6>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default Detail;
+
+

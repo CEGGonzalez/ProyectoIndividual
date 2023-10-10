@@ -1,0 +1,43 @@
+.paginado {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.paginado li {
+  margin: 0 4px;
+}
+
+.paginado button {
+  color: rgb(9, 0, 0);
+  background-color: #ffffff; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  padding: 5px 10px; 
+  cursor: pointer;
+  font-weight: bold; 
+  transition: background-color 0.3s ease, transform 0.2s ease; 
+}
+
+.paginado button:hover {
+  background-color: #f0f0f0; 
+}
+
+.paginado .number.active button {
+  color: #fff;
+  background-color: #930f0f;
+  border: 1px solid #090000; 
+}
+
+.paginado .inicioFin button {
+  background: rgb(8, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.paginado .disabled button {
+  color: #f8f2f2;
+  background-color: #ccc; 
+  border: 1px solid #ccc; 
+  cursor: not-allowed;
+}
