@@ -1,17 +1,3 @@
-const infoCleaner = (arr) => {
-  return arr.map((user) => {
-      return{
-          id:user.id,
-          name:`${user.name.forename} ${user.name.surname}`,
-          description:user.description,
-          image:user.image.url,
-          nationality:user.nationality,
-          birthDate:user.dob,
-          teams:user.teams,
-  }
- })
-};
-
 const addImage = (arr) => {
   const challenged = arr.map((driver) => {
     if (!driver.image?.url.length) {
