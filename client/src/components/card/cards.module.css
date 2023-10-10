@@ -1,0 +1,57 @@
+.card_container {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border: 1px solid grey;
+  border-radius: 35px;
+  cursor: pointer;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+  align-items: center;
+}
+
+.card_container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(216, 11, 11, 0.863);
+}
+
+.characterImage {
+  display: block;
+  width: 100%;
+  border-radius: 50%;
+  height: 100px;
+  -webkit-transition: all 0.3s ease-in-out; 
+  -ms-transition: all 0.3s ease-in-out; 
+transition: all 0.3s ease-in-out; 
+} 
+
+.imageContainer:hover .characterImage {
+  opacity: 0.4;
+}
+  
+.imageContainer:hover .name {
+  opacity: 1; 
+}
+
+.teams {
+  width: 180px;
+  color: black;
+  
+}
+
+.nombre {
+  color: rgb(6, 0, 0);
+  
+}
+.fecha {
+  color: black;
+}
+
+@media (max-width: 560px) {
+  .movieImage {
+    width: 90%;
+    height: auto;
+  }
+}

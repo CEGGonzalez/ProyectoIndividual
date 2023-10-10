@@ -1,0 +1,79 @@
+.detailContainer {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid grey;
+  border-radius: 35px;
+  width: 600px;
+  margin-left: auto; 
+  margin-right: auto; 
+}
+.closeButton {
+    margin-left: 400px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(173, 2, 2);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 25%;
+  }
+  .deleteButton {
+    margin-left: -250px;
+    color: rgb(255, 0, 0);
+    background-color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 3px;
+    margin-right: 15px;
+    border-radius: 25%;
+  }
+  .deleteButton[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .updateButton {
+    margin-left: 250px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(219, 152, 28);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 3px;
+    margin-right: 15px;
+    border-radius: 25%;
+  }
+  .updateButton[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .nombre {
+    margin-top: -15px;
+    max-width: fit-content;
+    color: rgb(255, 255, 255);
+    background-color: rgb(221, 0, 0);
+    text-align: center; 
+    margin-left: auto; 
+    margin-right: auto; 
+    padding: 2px; 
+  }
+  .id{
+    margin-top: 0px;
+  }
+  .nacionalidad {
+    margin-top: -10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 18px;
+  }
+  .imagen{
+    border: 1px solid #000000;
+    padding: 2px;
+    border-radius: 50%;
+    width: 210px;
+    height: 210px;
+  }
+  .teams{
+    font-family: 'Tahoma', Geneva, Verdana, sans-serif;
+  }
+  .descripcion{
+    max-width: 98%;
+  }

@@ -1,35 +1,31 @@
 const axios = require("axios");
-const apiUrl = "http://localhost:5000/drivers";
-const { Teams } = require("../db");
+const { Team } = require("../db");
 
-const fs = require('fs');
 
-const getByTeams = async (req, res) => {
-    try {
-        const teams = await db.Team.findAll();
-        if(teams.length === 0) {
-            try {
-                const data = fs.readFileSync('../../api/db.json', 'utf8');
-                const apiTeams = JSON.parse(data);
-                for (const apiTeam of apiTeams) {
-                    const existingTeam = await db.Team.findOne({
-                      where: { teams: apiTeam.name },
-                    });
-                    if (!existingTeam) {
-                      await db.Team.create(apiTeam);
-                    }
-                  }
-                const uniqueTeams = await db.Team.findAll();
-                res.status(200).json(uniqueTeams);
-              } catch (error) {
-                throw new Error('Error reading db.json');
-              }
+module.exports = getByTeams = async () => {
+
+  const response = (await axios.get("http://localhost:5000/drivers")).data;
+  const teamsSet = new Set(); // Conjunto para llevar un registro de equipos agregados
+  
+  for (const driver of response) {
+    if (driver.teams) {
+      const teams = driver.teams.split(',');
+      
+      // Recorre los equipos del conductor
+      for (const team of teams) {
+        // Elimina los espacios en blanco del equipo
+        const teamTrimmed = team.trim();
+        // Verifica si el equipo ya se ha agregado a la BD
+        if (!teamsSet.has(teamTrimmed)) {
+          // Agrega el equipo a la BD
+          await Team.create({ name: teamTrimmed });
+          teamsSet.add(teamTrimmed); // Agrega el equipo al conjunto
         }
-        else {res.status(200).json(teams)};
-    } catch (error) {
-        res.status(500).json({error: error.message});
+      }
     }
-
-};
-
-module.exports = getByTeams;
+  }
+  
+  console.log('Equipos agregados con éxito.');
+  return 'Proceso completado';
+   
+  };

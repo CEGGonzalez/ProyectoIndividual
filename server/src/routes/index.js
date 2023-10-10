@@ -1,9 +1,9 @@
 const { Router } = require("express");
-const router = Router();
 const driverRouters = require("./driver");
 const teamRouters = require("./team");
 
-router.use("/", driverRouters);
+const router = Router();
+
 router.use("/drivers", driverRouters);
 router.use("/teams", teamRouters);
 
