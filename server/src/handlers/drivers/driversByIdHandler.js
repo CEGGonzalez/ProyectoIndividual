@@ -1,6 +1,3 @@
-/******************************/
-/* HANDLER: by ID de piloto   */
-/******************************/
 const getDriverById = require('../../controllers/drivers/getDriverById');
 
 const driversByIdHandler = async (req,res) => {

@@ -26,7 +26,7 @@ const getAllDrivers = async() => {
             model: Team,
             attributes: ["id", "name"],
             through: {
-                attributes: [],
+            attributes: [],
             },
         }
     });
@@ -52,14 +52,14 @@ const getAllDrivers = async() => {
     
 // }
 
-const getDriverByName = async (forename) => {
+const getDriverByName = async (name) => {
     const infoApi = (await axios("http://localhost:5000/drivers")).data;
     const driverApi = infoCleaner(infoApi);
 
     const exact = [];
     const partial = [];
 
-    const lowerName = forename.toLowerCase();
+    const lowerName = name.toLowerCase();
 
     for (const driver of driverApi) {
         const driverForenameLower = driver.forename.toLowerCase();

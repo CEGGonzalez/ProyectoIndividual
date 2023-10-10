@@ -5,7 +5,7 @@ const deleteDriver = async (id) => {
   const driverToDelete = await Driver.findByPk(id);
 
   if (!driverToDelete) {
-    throw new Error("Driver not found");
+    throw new Error("Driver no existe");
   }
 
   await driverToDelete.destroy();

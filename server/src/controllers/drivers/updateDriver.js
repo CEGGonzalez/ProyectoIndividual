@@ -5,7 +5,7 @@ const updateDriver = async (id, updateData) => {
   const driver = await Driver.findByPk(id);
 
   if (!driver) {
-    throw new Error("Driver not found with ID");
+    throw new Error("No hay Driver con ese ID");
   }
 
   await driver.update(driverData);
@@ -16,7 +16,7 @@ const updateDriver = async (id, updateData) => {
       const { name } = teamData.DriverTeam; //extraigo el nombre del team 
 
       if (name) {
-        let [team] = await Team.findOrCreate({ // destructuro el array porqueel findOrCreate devuelve dos elemento el registro team y un bool si se creo o no
+        let [team] = await Team.findOrCreate({ // destructuro el array porque el findOrCreate devuelve dos elemento el registro team y un bool si se creo o no
           where: { name },
           defaults: { name } //sino encuentro el name, me quedo con el name para luego guardarlo
         });

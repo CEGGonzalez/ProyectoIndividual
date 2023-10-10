@@ -24,7 +24,7 @@ const newDriver = await Driver.create({
 })
 
 for (const teamName of arrTeams) {
-  const [team, created] = await Team.findOrCreate({
+  const [team] = await Team.findOrCreate({
     where: { name: teamName },
   });
   await newDriver.addTeam(team);
