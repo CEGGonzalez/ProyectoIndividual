@@ -74,7 +74,7 @@ export default function Paginado({ driversPerPage, allDrivers, paginado, current
           </button>
         </li>
         <li>
-          <p className={styles.inicioFin} style={{color: "black"}}>
+          <p className={styles.inicioFin} style={{color: "red"}}>
             {currentPage} / {Math.ceil(allDrivers / driversPerPage)}
           </p>
         </li>

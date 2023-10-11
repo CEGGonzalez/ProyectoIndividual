@@ -6,7 +6,8 @@ const Landing = () => {
     <div>
       <div className={styles.titleContainer}>
         <Link to="/home" >
-          Bienvenido
+          Bienvenido presione
+           para ingresar
         </Link>
       </div>
     </div>

@@ -65,19 +65,8 @@ function Detail() {
     </button>
   );
 
-  // const updateButton = isDBDriver ? (
-  //   <Link to={`/update/${driver.id}`} className={styles.updateButton} title="Update Driver">
-  //     <span role="img" aria-label="Foto" className={styles.imgIcon}>↻</span>
-  //   </Link>
-  // ) : (
-  //   <button className={styles.updateButton} disabled>
-  //     <span role="img" aria-label="Foto" className={styles.imgIcon} title='update info of driver' disabled>↻</span>
-  //   </button>
-  // );
-
   return (
   <div className={styles.detailContainer}>
-      {/* {updateButton} */}
       {deleteButton}
       <Link to="/home" className={styles.closeButton} title="Close Card">
         <span role="img" aria-label="Foto" className={styles.imgIcon}>&#10005;</span>
